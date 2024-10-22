@@ -81,6 +81,16 @@ public class ProduitDAO implements IProduitDAO{
 
     @Override
     public void deleteProduit(long id) {
+        Connection connection = SingletonConnection.getConnection();
+        try {
+            String req ="delete from produit where idProduit=?";
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setLong(1,id);
+            pst.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }

@@ -36,11 +36,31 @@ public class ProduitServlet extends HttpServlet {
 
 
         }
+        else if(path.equals("/ajouter.do")){
+            Produit produit = new Produit();
+            request.setAttribute("produit",produit);
+            request.getRequestDispatcher("/Vues/saisieProduit.jsp").forward(request,response);
+        }
+        else if(path.equals("/supprimer.do")){
+            Long id = Long.parseLong(request.getParameter("id"));
+            metier.deleteProduit(id);
+            response.sendRedirect("chercher.do?mc=");
+        }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path =request.getServletPath();
+        if(path.equals("/save.do")){
+            String designation = request.getParameter("designation");
+            double prix = Double.parseDouble(request.getParameter("prix"));
+            int quantite = Integer.parseInt(request.getParameter("quantite"));
+            Produit produit = metier.save(new Produit(designation,prix,quantite));
+            request.setAttribute("produitSave",produit);
+            request.getRequestDispatcher("/Vues/confirmation.jsp").forward(request,response);
+
+        }
 
 
 

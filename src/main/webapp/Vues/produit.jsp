@@ -17,7 +17,7 @@
 <body>
    <%@include file="header.jsp"%>
 
-   <div class="container">
+   <div class="container p-3 mt-4">
        <div class="card border-primary mt-3">
            <div class="card-header text-white bg-primary">Liste des produits</div>
                  <div class="card-body">
@@ -26,12 +26,13 @@
                             <input type="text" name="mc" value="${model.getMC()}">
                             <button type="submit" class="btn btn-primary">Chercher</button>
                         </form>
-                       <table class="table table table-striped">
+                       <table class="table table table-striped row-6">
                            <tr>
                                <th>ID</th>
                                <th>Designation</th>
                                <th>Prix</th>
                                <th>Quantite</th>
+                               <th colspan="2">Actions</th>
                            </tr>
                            <c:forEach items="${model.getProduits()}" var="p">
                                <tr>
@@ -39,6 +40,14 @@
                                    <td>${p.getDesignation()}</td>
                                    <td>${p.getPrix()}</td>
                                    <td>${p.getQuantite()}</td>
+                                   <td>
+                                       <a href="modifier.do" class="btn btn-primary btn-sm text-white">Modifier</a>
+                                   </td>
+                                   <td>
+                                       <a onclick="return confirm('Êtes-vous sûr d’avoir Supprimer le produit ?!!')" href="supprimer.do?id=${p.getID()}" class="btn btn-danger btn-sm text-white">Supprimer</a>
+                                   </td>
+
+
                                </tr>
                            </c:forEach>
                        </table>
