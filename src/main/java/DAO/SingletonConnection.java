@@ -11,7 +11,7 @@ public class SingletonConnection {
 
         try {
             // Charger le driver JDBC
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             //etablir la connection a la base de donnees
             connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionproduit","root","Salma@imassenda123");
             System.out.println("la connection est etablie avec succes !!!!");

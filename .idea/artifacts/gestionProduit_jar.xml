@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="gestionProduit:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/gestionProduit_jar</output-path>
+    <root id="archive" name="gestionProduit.jar">
+      <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+    </root>
+  </artifact>
+</component>
