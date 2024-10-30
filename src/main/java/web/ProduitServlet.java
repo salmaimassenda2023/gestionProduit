@@ -25,6 +25,7 @@ public class ProduitServlet extends HttpServlet {
         if(path.equals("/index.do")){
             request.setAttribute("model",produitModel);
             request.getRequestDispatcher("/Vues/produit.jsp").forward(request,response);
+
         }
         else if(path.equals("/chercher.do")){
             String motCle = request.getParameter("mc");
@@ -46,6 +47,13 @@ public class ProduitServlet extends HttpServlet {
             metier.deleteProduit(id);
             response.sendRedirect("chercher.do?mc=");
         }
+        else if(path.equals("/modifier.do")){
+            Long id =Long.parseLong(request.getParameter("id"));
+            Produit produit = metier.getProduitParId(id);
+            produit.toString();
+            request.setAttribute("produitMd",produit);
+            request.getRequestDispatcher("/Vues/modifierProduit.jsp").forward(request,response);
+        }
 
     }
 
@@ -60,7 +68,18 @@ public class ProduitServlet extends HttpServlet {
             request.setAttribute("produitSave",produit);
             request.getRequestDispatcher("/Vues/confirmation.jsp").forward(request,response);
 
+        }else if(path.equals("/saveModifier.do")){
+            Long id =Long.parseLong(request.getParameter("id"));
+            String designation = request.getParameter("designation");
+            double prix = Double.parseDouble(request.getParameter("prix"));
+            int quantite = Integer.parseInt(request.getParameter("quantite"));
+            Produit produit = metier.updateProduit(new Produit(id,designation,prix,quantite));
+            request.setAttribute("produitSave",produit);
+            request.getRequestDispatcher("/Vues/confirmation.jsp").forward(request,response);
+
+
         }
+
 
 
 

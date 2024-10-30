@@ -37,6 +37,38 @@ public class ProduitDAO implements IProduitDAO{
          return produit;
     }
 
+
+    @Override
+    public Produit updateProduit(Produit produit) {
+        Connection connection= SingletonConnection.getConnection();
+        try {
+            String query ="update produit set designation=?,prix=?,quantite=? where idProduit=? ";
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1,produit.getDesignation());
+            pst.setDouble(2,produit.getPrix());
+            pst.setInt(3,produit.getQuantite());
+            pst.setLong(4,produit.getID());
+            pst.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return produit;
+    }
+
+    @Override
+    public void deleteProduit(long id) {
+        Connection connection = SingletonConnection.getConnection();
+        try {
+            String req ="delete from produit where idProduit=?";
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setLong(1,id);
+            pst.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
     @Override
     public ArrayList<Produit> getProduitParMC(String mot) {
         ArrayList<Produit> produits = new ArrayList<>();
@@ -71,26 +103,30 @@ public class ProduitDAO implements IProduitDAO{
 
     @Override
     public Produit getProduitParId(Long id) {
-        return null;
-    }
-
-    @Override
-    public Produit updateProduit(Long id) {
-        return null;
-    }
-
-    @Override
-    public void deleteProduit(long id) {
         Connection connection = SingletonConnection.getConnection();
+        Produit produit = new Produit();
         try {
-            String req ="delete from produit where idProduit=?";
-            PreparedStatement pst = connection.prepareStatement(req);
+            String query ="select * from produit where idProduit=?";
+            PreparedStatement pst = connection.prepareStatement(query);
             pst.setLong(1,id);
-            pst.executeUpdate();
+            ResultSet resultSet = pst.executeQuery();
+            if(resultSet.next()){
+
+                String designation = resultSet.getString("designation");
+                double prix=resultSet.getDouble("prix");
+                int quantite=resultSet.getInt("quantite");
+                // remplir
+                produit.setID(id);
+                produit.setDesignation(designation);
+                produit.setPrix(prix);
+                produit.setQuantite(quantite);
+            }
 
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        return produit;
     }
+
+
 }

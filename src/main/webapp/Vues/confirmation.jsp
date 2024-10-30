@@ -13,7 +13,7 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
-  <div class="container mt-1 ">
+  <div class="container p-2 mt-5 ">
       <div class="card border-success">
           <div class="card-header bg-success text-white">Insertion Du Produit Avec Succes</div>
           <div class="card-body">

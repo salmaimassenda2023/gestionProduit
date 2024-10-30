@@ -41,7 +41,7 @@
                                    <td>${p.getPrix()}</td>
                                    <td>${p.getQuantite()}</td>
                                    <td>
-                                       <a href="modifier.do" class="btn btn-primary btn-sm text-white">Modifier</a>
+                                       <a href="modifier.do?id=${p.getID()}" class="btn btn-primary btn-sm text-white">Modifier</a>
                                    </td>
                                    <td>
                                        <a onclick="return confirm('Êtes-vous sûr d’avoir Supprimer le produit ?!!')" href="supprimer.do?id=${p.getID()}" class="btn btn-danger btn-sm text-white">Supprimer</a>
